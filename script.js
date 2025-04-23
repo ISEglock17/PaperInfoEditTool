@@ -185,12 +185,33 @@ function saveEditedPaper(originalPaper) {
     renderPaperList();
 }
 
-function copyToClipboard(elementId) {
-    const text = document.getElementById(elementId).textContent;
-    navigator.clipboard.writeText(text).then(() => {
-        alert('コピーしました');
-    });
+function copyToClipboard(inputId) {
+    // コピーする対象の入力フィールドを取得
+    const inputElement = document.getElementById(inputId);
+    
+    // 入力フィールドの内容を選択
+    inputElement.select();
+    inputElement.setSelectionRange(0, 99999); // モバイル端末用
+
+    // コピー操作
+    document.execCommand('copy');
+
+    // フィードバックメッセージを表示
+    const feedback = document.createElement('span');
+    feedback.classList.add('copy-feedback');
+    feedback.textContent = 'コピーしました！';
+    
+    // 入力フィールドの下にフィードバックを追加
+    const container = inputElement.closest('.input-container');
+    container.appendChild(feedback);
+
+    // 3秒後にフィードバックを非表示にする
+    setTimeout(() => {
+        feedback.remove();
+    }, 3000);
 }
+
+
 
 function exportPapers() {
     const dataStr = JSON.stringify(papers, null, 2);

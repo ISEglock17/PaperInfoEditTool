@@ -13,57 +13,85 @@
             <h1>論文情報管理ツール</h1>
             <div class="card">
                 <h2>論文情報入力</h2>
-                <!-- フォーム要素ここに -->
-
+            
                 <label for="title">論文タイトル</label>
-                <input type="text" id="title">
-    
+                <div class="input-container">
+                    <input type="text" id="title">
+                    <button onclick="copyToClipboard('title')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="url">論文URL</label>
-                <input type="text" id="url">
-    
+                <div class="input-container">
+                    <input type="text" id="url">
+                    <button onclick="copyToClipboard('url')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="citation">引用文</label>
-                <textarea id="citation" rows="4"></textarea>
-    
+                <div class="input-container">
+                    <textarea id="citation" rows="4"></textarea>
+                    <button onclick="copyToClipboard('citation')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="conference">国際会議名</label>
-                <input type="text" id="conference">
-    
+                <div class="input-container">
+                    <input type="text" id="conference">
+                    <button onclick="copyToClipboard('conference')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="year">公開年</label>
-                <input type="text" id="year">
-    
+                <div class="input-container">
+                    <input type="text" id="year">
+                    <button onclick="copyToClipboard('year')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="rank">オススメランク</label>
-                <select id="rank">
-                    <option value="S">S</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="B-">B-</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="C-">C-</option>
-                </select>
-    
+                <div class="input-container">
+                    <select id="rank">
+                        <option value="S">S</option>
+                        <option value="A+">A+</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                    </select>
+                    <button onclick="copyToClipboard('rank')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="introducer">紹介者</label>
-                <input type="text" id="introducer">
-    
+                <div class="input-container">
+                    <input type="text" id="introducer">
+                    <button onclick="copyToClipboard('introducer')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="comment1">コメント</label>
-                <textarea id="comment1" rows="3"></textarea>
-    
+                <div class="input-container">
+                    <textarea id="comment1" rows="3"></textarea>
+                    <button onclick="copyToClipboard('comment1')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="comment2">コメント2</label>
-                <textarea id="comment2" rows="3"></textarea>
-    
+                <div class="input-container">
+                    <textarea id="comment2" rows="3"></textarea>
+                    <button onclick="copyToClipboard('comment2')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="abstract">概要(Abstract)</label>
-                <textarea id="abstract" rows="5"></textarea>
-    
+                <div class="input-container">
+                    <textarea id="abstract" rows="5"></textarea>
+                    <button onclick="copyToClipboard('abstract')" class="copy-button">コピー</button>
+                </div>
+            
                 <label for="tags">タグ</label>
-                <input type="text" id="tags">
-
-                <button onclick="generateOutput()">出力を生成</button>
-                <button onclick="addPaperToList()">論文情報を追加</button>
-                <button id="saveButton">編集内容の保存</button>
-                <button onclick="clearInputs()">入力をリセット</button>
+                <div class="input-container">
+                    <input type="text" id="tags">
+                    <button onclick="copyToClipboard('tags')" class="copy-button">コピー</button>
+                </div>
             </div>
+            
 
   
             <div class="card">
