@@ -8,173 +8,204 @@
     <title>論文情報管理ツール</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-        textarea, input, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .output, .plain-output {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            white-space: pre-wrap;
-        }
-        .list-container {
-            margin-top: 30px;
-        }
-        .paper-list button {
-            display: block;
-            margin: 5px 0;
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            text-align: left;
-            width: 100%;
-        }
-        .paper-list button:hover {
-            background-color: #1976D2;
-        }
-
-        /* 全体レイアウトを2カラムに */
-        .main-content {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+          }
+          
+          h2 {
+            margin-top: 1.5em;
+            font-size: 1.4em;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 4px;
+            color: #343a40;
+          }
+          
+          .container {
             display: flex;
             flex-direction: column;
-        }
-        @media (min-width: 1000px) {
-            .main-content {
-                flex-direction: row;
-                gap: 30px;
-            }
-            .form-container {
-                flex: 3;
-            }
-            .list-container {
-                flex: 1;
-                max-width: 300px;
-            }
-        }
+          }
+          
+          .paper-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+          }
+          
+          .paper-list button {
+            background-color: #6c757d; /* Bootstrapのsecondary色風 */
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            cursor: pointer;
+          }
+          
+          .paper-list button:hover {
+            background-color: #5a6268;
+          }
+          
 
-        /* コピー用ボタン */
-        button.copy-button {
-            margin-bottom: 10px;
-            background-color: #888;
-        }
-        button.copy-button:hover {
-            background-color: #666;
-        }
+          @media screen and (min-width: 1024px) {
+            .container {
+              flex-direction: row;
+              gap: 30px;
+            }
+          
+            .main-form {
+              flex: 3;
+            }
+          
+            .list-container {
+              flex: 1;
+              max-height: 100vh;
+              overflow-y: auto;
+              position: sticky;
+              top: 20px;
+              background: #fff;
+              border-radius: 12px;
+              padding: 16px;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            }
+          }
+          
+          .card {
+            background: #fff;
+            padding: 20px;
+            margin-top: 1em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+          }
+          
+          button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            margin: 4px 0;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: background-color 0.2s ease-in-out;
+          }
+          
+          button:hover {
+            background-color: #4338ca;
+          }
+          
+          input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.95em;
+            background-color: #fdfdfd;
+          }
+          
+          label {
+            font-weight: 600;
+            margin-top: 8px;
+            display: block;
+          }
+          
+          .output {
+            white-space: pre-wrap;
+            background-color: #f1f3f5;
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 10px;
+            border: 1px solid #dee2e6;
+            font-size: 0.92em;
+          }
+          
 
     </style>
 </head>
 <body>
-        <!-- コンテナを2カラムに -->
-    <div class="main-content">
-        <!-- 入力エリア（左） -->
-        <div class="form-container">
+    <div class="container">
+        <div class="main-form">
             <h1>論文情報管理ツール</h1>
-                       <!-- 入力リセットボタン -->
-                       <button onclick="clearInputs()">新規入力</button>
+            <div class="card">
+                <h2>論文情報入力</h2>
+                <!-- フォーム要素ここに -->
 
-            <label for="title">論文タイトル</label>
-            <input type="text" id="title">
-
-            <label for="url">論文URL</label>
-            <input type="text" id="url">
-
-            <label for="citation">引用文</label>
-            <textarea id="citation" rows="4"></textarea>
-
-            <label for="conference">国際会議名</label>
-            <input type="text" id="conference">
-
-            <label for="year">公開年</label>
-            <input type="text" id="year">
-
-            <label for="rank">オススメランク</label>
-            <select id="rank">
-                <option value="S">S</option>
-                <option value="A+">A+</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-            </select>
-
-            <label for="introducer">紹介者</label>
-            <input type="text" id="introducer">
-
-            <label for="comment1">コメント</label>
-            <textarea id="comment1" rows="3"></textarea>
-
-            <label for="comment2">コメント2</label>
-            <textarea id="comment2" rows="3"></textarea>
-
-            <label for="abstract">概要(Abstract)</label>
-            <textarea id="abstract" rows="5"></textarea>
-
-            <label for="tags">タグ</label>
-            <input type="text" id="tags">
-
-            <button onclick="generateOutput()">出力を生成</button>
-            <button onclick="addPaperToList()">論文情報を追加</button>
- 
+                <label for="title">論文タイトル</label>
+                <input type="text" id="title">
     
-                
-        
-            <!-- コピーしやすくするボタンを出力欄の上に追加 -->
-            <h2>出力情報1</h2>
-            <button onclick="copyToClipboard('output')">コピー</button>
-            <div id="output" class="output"></div>
+                <label for="url">論文URL</label>
+                <input type="text" id="url">
     
-            <h2>出力情報2</h2>
-            <button onclick="copyToClipboard('plainOutput')">コピー</button>
-            <div id="plainOutput" class="plain-output"></div>
+                <label for="citation">引用文</label>
+                <textarea id="citation" rows="4"></textarea>
     
+                <label for="conference">国際会議名</label>
+                <input type="text" id="conference">
+    
+                <label for="year">公開年</label>
+                <input type="text" id="year">
+    
+                <label for="rank">オススメランク</label>
+                <select id="rank">
+                    <option value="S">S</option>
+                    <option value="A+">A+</option>
+                    <option value="A">A</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="B-">B-</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="C-">C-</option>
+                </select>
+    
+                <label for="introducer">紹介者</label>
+                <input type="text" id="introducer">
+    
+                <label for="comment1">コメント</label>
+                <textarea id="comment1" rows="3"></textarea>
+    
+                <label for="comment2">コメント2</label>
+                <textarea id="comment2" rows="3"></textarea>
+    
+                <label for="abstract">概要(Abstract)</label>
+                <textarea id="abstract" rows="5"></textarea>
+    
+                <label for="tags">タグ</label>
+                <input type="text" id="tags">
+
+                <button onclick="generateOutput()">出力を生成</button>
+                <button onclick="addPaperToList()">論文情報を追加</button>
+                <button onclick="clearForm()">入力をリセット</button>
+            </div>
+
+  
+            <div class="card">
+                <h2>出力情報1</h2>
+                <button onclick="copyToClipboard('output')">出力1をコピー</button>
+                <div id="output" class="output"></div>
+            </div>
+          
+            <div class="card">
+                <h2>出力情報2</h2>
+                <button onclick="copyToClipboard('plainOutput')">出力2をコピー</button>
+                <div id="plainOutput" class="output"></div>
+            </div>
         </div>
 
         <div class="list-container">
             <h2>論文一覧</h2>
             <div class="paper-list" id="paperList"></div>
             
-            <button onclick="exportPapers()">論文情報をエクスポート</button>
-            <input type="file" id="importFile" accept=".json" onchange="importPapers()" />
+            <h2>データ管理</h2>
+                <button onclick="exportPapers()">論文情報をエクスポート</button>
+                <input type="file" id="importFile" accept=".json" onchange="importPapers()" />              
             </div>
         </div>
-
-  
-
     </div>
 
     <script>
