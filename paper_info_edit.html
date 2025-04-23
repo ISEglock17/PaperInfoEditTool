@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>論文情報管理ツール</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        textarea, input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output, .plain-output {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .list-container {
+            margin-top: 30px;
+        }
+        .paper-list button {
+            display: block;
+            margin: 5px 0;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-align: left;
+            width: 100%;
+        }
+        .paper-list button:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>論文情報管理ツール</h1>
+
+        <label for="title">論文タイトル</label>
+        <input type="text" id="title">
+
+        <label for="url">論文URL</label>
+        <input type="text" id="url">
+
+        <label for="citation">引用文</label>
+        <textarea id="citation" rows="4"></textarea>
+
+        <label for="conference">国際会議名</label>
+        <input type="text" id="conference">
+
+        <label for="year">公開年</label>
+        <input type="text" id="year">
+
+        <label for="rank">オススメランク</label>
+        <select id="rank">
+            <option value="S">S</option>
+            <option value="A+">A+</option>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+        </select>
+
+        <label for="introducer">紹介者</label>
+        <input type="text" id="introducer">
+
+        <label for="comment1">コメント</label>
+        <textarea id="comment1" rows="3"></textarea>
+
+        <label for="comment2">コメント2</label>
+        <textarea id="comment2" rows="3"></textarea>
+
+        <label for="abstract">概要(Abstract)</label>
+        <textarea id="abstract" rows="5"></textarea>
+
+        <label for="tags">タグ</label>
+        <input type="text" id="tags">
+
+        <button onclick="generateOutput()">出力を生成</button>
+        <button onclick="addPaperToList()">論文情報を追加</button>
+        <!-- 入力リセットボタン -->
+        <button onclick="clearInputs()">新規入力</button>
+
+
+        <h2>出力情報1</h2>
+        <div id="output" class="output"></div>
+
+        <h2>出力情報2</h2>
+        <div id="plainOutput" class="plain-output"></div>
+
+        <div class="list-container">
+            <h2>論文一覧</h2>
+            <div class="paper-list" id="paperList"></div>
+        </div>
+
+        <button onclick="exportPapers()">論文情報をエクスポート</button>
+        <input type="file" id="importFile" accept=".json" onchange="importPapers()" />
+    </div>
+
+    <script>
+        const papers = [];
+
+        function generateOutput() {
+            const title = document.getElementById('title').value;
+            const url = document.getElementById('url').value;
+            const citation = document.getElementById('citation').value.replace(new RegExp(title, 'g'), `[${title} ${url}]`);
+            const conference = document.getElementById('conference').value;
+            const year = document.getElementById('year').value;
+            const rank = document.getElementById('rank').value;
+            const introducer = document.getElementById('introducer').value;
+            const comment1 = document.getElementById('comment1').value;
+            const comment2 = document.getElementById('comment2').value;
+            const abstract = document.getElementById('abstract').value;
+            const tags = document.getElementById('tags').value;
+
+            const output = `
+${title}
+
+[**** 紹介者]
+#${introducer}
+
+[**** 文献情報]
+${citation}
+
+[*** 論文内容]
+[**** 概要]
+>${abstract}
+
+[**** どんな研究か]
+
+[**** 先行研究と比べてどこがすごいか]
+
+[**** 技術や手法の要点は]
+
+[**** どうやって有効性を検証したか]
+
+[**** 不十分な点や弱点は何か]
+
+[**** 用語解説]
+
+[**** タグ]
+#${conference}${year}
+${tags}
+            `;
+
+            const plainOutput = `
+論文タイトル: ${title}
+論文URL: ${url}
+引用文: ${citation}
+国際会議名: ${conference}
+公開年: ${year}
+オススメランク: ${rank}
+紹介者: ${introducer}
+コメント: ${comment1}
+コメント2: ${comment2}
+概要: ${abstract}
+タグ: ${tags}
+            `;
+
+            document.getElementById('output').textContent = output;
+            document.getElementById('plainOutput').textContent = plainOutput;
+        }
+
+        function addPaperToList() {
+            const title = document.getElementById('title').value;
+            const url = document.getElementById('url').value;
+            const citation = document.getElementById('citation').value;
+            const conference = document.getElementById('conference').value;
+            const year = document.getElementById('year').value;
+            const rank = document.getElementById('rank').value;
+            const introducer = document.getElementById('introducer').value;
+            const comment1 = document.getElementById('comment1').value;
+            const comment2 = document.getElementById('comment2').value;
+            const abstract = document.getElementById('abstract').value;
+            const tags = document.getElementById('tags').value;
+
+            const paper = { title, url, citation, conference, year, rank, introducer, comment1, comment2, abstract, tags };
+            papers.push(paper);
+
+            const paperList = document.getElementById('paperList');
+            const button = document.createElement('button');
+            button.textContent = title;
+            button.onclick = () => displayPaper(paper);
+            paperList.appendChild(button);
+        }
+
+        function clearInputs() {
+            const ids = ['title', 'url', 'citation', 'conference', 'year', 'rank', 'introducer', 'comment1', 'comment2', 'abstract', 'tags'];
+            ids.forEach(id => document.getElementById(id).value = '');
+            document.getElementById('output').textContent = '';
+            document.getElementById('plainOutput').textContent = '';
+        }
+        
+        function displayPaper(paper) {
+            document.getElementById('title').value = paper.title;
+            document.getElementById('url').value = paper.url;
+            document.getElementById('citation').value = paper.citation;
+            document.getElementById('conference').value = paper.conference;
+            document.getElementById('year').value = paper.year;
+            document.getElementById('rank').value = paper.rank;
+            document.getElementById('introducer').value = paper.introducer;
+            document.getElementById('comment1').value = paper.comment1;
+            document.getElementById('comment2').value = paper.comment2;
+            document.getElementById('abstract').value = paper.abstract;
+            document.getElementById('tags').value = paper.tags;
+        
+            const plainOutput = `
+        論文タイトル: ${paper.title}
+        論文URL: ${paper.url}
+        引用文: ${paper.citation}
+        国際会議名: ${paper.conference}
+        公開年: ${paper.year}
+        オススメランク: ${paper.rank}
+        紹介者: ${paper.introducer}
+        コメント: ${paper.comment1}
+        コメント2: ${paper.comment2}
+        概要: ${paper.abstract}
+        タグ: ${paper.tags}
+            `;
+            document.getElementById('plainOutput').textContent = plainOutput;
+        }
+        
+        function exportPapers() {
+            const dataStr = JSON.stringify(papers, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'papers.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importPapers() {
+            const fileInput = document.getElementById('importFile');
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const importedPapers = JSON.parse(e.target.result);
+                papers.push(...importedPapers);
+                const paperList = document.getElementById('paperList');
+                importedPapers.forEach(paper => {
+                    const button = document.createElement('button');
+                    button.textContent = paper.title;
+                    button.onclick = () => displayPaper(paper);
+                    paperList.appendChild(button);
+                });
+            };
+            reader.readAsText(file);
+        }
+
+        
+    </script>
+</body>
+</html>
