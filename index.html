@@ -63,75 +63,118 @@
         .paper-list button:hover {
             background-color: #1976D2;
         }
+
+        /* 全体レイアウトを2カラムに */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 1000px) {
+            .main-content {
+                flex-direction: row;
+                gap: 30px;
+            }
+            .form-container {
+                flex: 3;
+            }
+            .list-container {
+                flex: 1;
+                max-width: 300px;
+            }
+        }
+
+        /* コピー用ボタン */
+        button.copy-button {
+            margin-bottom: 10px;
+            background-color: #888;
+        }
+        button.copy-button:hover {
+            background-color: #666;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>論文情報管理ツール</h1>
+        <!-- コンテナを2カラムに -->
+    <div class="main-content">
+        <!-- 入力エリア（左） -->
+        <div class="form-container">
+            <h1>論文情報管理ツール</h1>
+                       <!-- 入力リセットボタン -->
+                       <button onclick="clearInputs()">新規入力</button>
 
-        <label for="title">論文タイトル</label>
-        <input type="text" id="title">
+            <label for="title">論文タイトル</label>
+            <input type="text" id="title">
 
-        <label for="url">論文URL</label>
-        <input type="text" id="url">
+            <label for="url">論文URL</label>
+            <input type="text" id="url">
 
-        <label for="citation">引用文</label>
-        <textarea id="citation" rows="4"></textarea>
+            <label for="citation">引用文</label>
+            <textarea id="citation" rows="4"></textarea>
 
-        <label for="conference">国際会議名</label>
-        <input type="text" id="conference">
+            <label for="conference">国際会議名</label>
+            <input type="text" id="conference">
 
-        <label for="year">公開年</label>
-        <input type="text" id="year">
+            <label for="year">公開年</label>
+            <input type="text" id="year">
 
-        <label for="rank">オススメランク</label>
-        <select id="rank">
-            <option value="S">S</option>
-            <option value="A+">A+</option>
-            <option value="A">A</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B">B</option>
-            <option value="B-">B-</option>
-            <option value="C+">C+</option>
-            <option value="C">C</option>
-            <option value="C-">C-</option>
-        </select>
+            <label for="rank">オススメランク</label>
+            <select id="rank">
+                <option value="S">S</option>
+                <option value="A+">A+</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+            </select>
 
-        <label for="introducer">紹介者</label>
-        <input type="text" id="introducer">
+            <label for="introducer">紹介者</label>
+            <input type="text" id="introducer">
 
-        <label for="comment1">コメント</label>
-        <textarea id="comment1" rows="3"></textarea>
+            <label for="comment1">コメント</label>
+            <textarea id="comment1" rows="3"></textarea>
 
-        <label for="comment2">コメント2</label>
-        <textarea id="comment2" rows="3"></textarea>
+            <label for="comment2">コメント2</label>
+            <textarea id="comment2" rows="3"></textarea>
 
-        <label for="abstract">概要(Abstract)</label>
-        <textarea id="abstract" rows="5"></textarea>
+            <label for="abstract">概要(Abstract)</label>
+            <textarea id="abstract" rows="5"></textarea>
 
-        <label for="tags">タグ</label>
-        <input type="text" id="tags">
+            <label for="tags">タグ</label>
+            <input type="text" id="tags">
 
-        <button onclick="generateOutput()">出力を生成</button>
-        <button onclick="addPaperToList()">論文情報を追加</button>
-        <!-- 入力リセットボタン -->
-        <button onclick="clearInputs()">新規入力</button>
-
-
-        <h2>出力情報1</h2>
-        <div id="output" class="output"></div>
-
-        <h2>出力情報2</h2>
-        <div id="plainOutput" class="plain-output"></div>
+            <button onclick="generateOutput()">出力を生成</button>
+            <button onclick="addPaperToList()">論文情報を追加</button>
+ 
+    
+                
+        
+            <!-- コピーしやすくするボタンを出力欄の上に追加 -->
+            <h2>出力情報1</h2>
+            <button onclick="copyToClipboard('output')">コピー</button>
+            <div id="output" class="output"></div>
+    
+            <h2>出力情報2</h2>
+            <button onclick="copyToClipboard('plainOutput')">コピー</button>
+            <div id="plainOutput" class="plain-output"></div>
+    
+        </div>
 
         <div class="list-container">
             <h2>論文一覧</h2>
             <div class="paper-list" id="paperList"></div>
+            
+            <button onclick="exportPapers()">論文情報をエクスポート</button>
+            <input type="file" id="importFile" accept=".json" onchange="importPapers()" />
+            </div>
         </div>
 
-        <button onclick="exportPapers()">論文情報をエクスポート</button>
-        <input type="file" id="importFile" accept=".json" onchange="importPapers()" />
+  
+
     </div>
 
     <script>
@@ -149,9 +192,9 @@
             const comment2 = document.getElementById('comment2').value;
             const abstract = document.getElementById('abstract').value;
             const tags = document.getElementById('tags').value;
-
-            const output = `
-${title}
+        
+            const output =
+`${title}
 
 [**** 紹介者]
 #${introducer}
@@ -177,11 +220,10 @@ ${citation}
 
 [**** タグ]
 #${conference}${year}
-${tags}
-            `;
+${tags}`;
 
-            const plainOutput = `
-論文タイトル: ${title}
+    const plainOutput =
+`論文タイトル: ${title}
 論文URL: ${url}
 引用文: ${citation}
 国際会議名: ${conference}
@@ -191,12 +233,12 @@ ${tags}
 コメント: ${comment1}
 コメント2: ${comment2}
 概要: ${abstract}
-タグ: ${tags}
-            `;
-
+タグ: ${tags}`;
+        
             document.getElementById('output').textContent = output;
             document.getElementById('plainOutput').textContent = plainOutput;
         }
+        
 
         function addPaperToList() {
             const title = document.getElementById('title').value;
@@ -241,20 +283,64 @@ ${tags}
             document.getElementById('abstract').value = paper.abstract;
             document.getElementById('tags').value = paper.tags;
         
-            const plainOutput = `
-        論文タイトル: ${paper.title}
-        論文URL: ${paper.url}
-        引用文: ${paper.citation}
-        国際会議名: ${paper.conference}
-        公開年: ${paper.year}
-        オススメランク: ${paper.rank}
-        紹介者: ${paper.introducer}
-        コメント: ${paper.comment1}
-        コメント2: ${paper.comment2}
-        概要: ${paper.abstract}
-        タグ: ${paper.tags}
-            `;
+            generateOutputFromPaper(paper);  // 出力エリアも更新
+        }
+        
+        function generateOutputFromPaper(paper) {
+            const citationWithLink = paper.citation.replace(new RegExp(paper.title, 'g'), `[${paper.title} ${paper.url}]`);
+            const output = 
+`${paper.title}
+
+[**** 紹介者]
+#${paper.introducer}
+
+[**** 文献情報]
+${citationWithLink}
+
+[*** 論文内容]
+[**** 概要]
+>${paper.abstract}
+
+[**** どんな研究か]
+
+[**** 先行研究と比べてどこがすごいか]
+
+[**** 技術や手法の要点は]
+
+[**** どうやって有効性を検証したか]
+
+[**** 不十分な点や弱点は何か]
+
+[**** 用語解説]
+
+[**** タグ]
+#${paper.conference}${paper.year}
+${paper.tags}
+`;
+
+    const plainOutput = `
+論文タイトル: ${paper.title}
+論文URL: ${paper.url}
+引用文: ${paper.citation}
+国際会議名: ${paper.conference}
+公開年: ${paper.year}
+オススメランク: ${paper.rank}
+紹介者: ${paper.introducer}
+コメント: ${paper.comment1}
+コメント2: ${paper.comment2}
+概要: ${paper.abstract}
+タグ: ${paper.tags}
+`;
+        
+            document.getElementById('output').textContent = output;
             document.getElementById('plainOutput').textContent = plainOutput;
+        }
+        
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('コピーしました');
+            });
         }
         
         function exportPapers() {
