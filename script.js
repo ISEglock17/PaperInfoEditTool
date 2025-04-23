@@ -104,6 +104,9 @@ function displayPaper(paper) {
     document.getElementById('tags').value = paper.tags;
 
     generateOutputFromPaper(paper);  // 出力エリアも更新
+    // 編集後にその論文を更新できるようにする
+    const saveButton = document.getElementById('saveButton');
+    saveButton.onclick = () => saveEditedPaper(paper);
 }
         
 function generateOutputFromPaper(paper) {
@@ -154,6 +157,32 @@ ${paper.tags}
         
     document.getElementById('output').textContent = output;
     document.getElementById('plainOutput').textContent = plainOutput;
+}
+
+function saveEditedPaper(originalPaper) {
+    const title = document.getElementById('title').value;
+    const url = document.getElementById('url').value;
+    const citation = document.getElementById('citation').value;
+    const conference = document.getElementById('conference').value;
+    const year = document.getElementById('year').value;
+    const rank = document.getElementById('rank').value;
+    const introducer = document.getElementById('introducer').value;
+    const comment1 = document.getElementById('comment1').value;
+    const comment2 = document.getElementById('comment2').value;
+    const abstract = document.getElementById('abstract').value;
+    const tags = document.getElementById('tags').value;
+
+    // 編集した内容で論文を更新
+    const updatedPaper = { title, url, citation, conference, year, rank, introducer, comment1, comment2, abstract, tags };
+    
+    // 論文を元の位置で更新
+    const index = papers.indexOf(originalPaper);
+    if (index > -1) {
+        papers[index] = updatedPaper;
+    }
+
+    // リストを再描画
+    renderPaperList();
 }
 
 function copyToClipboard(elementId) {
@@ -223,7 +252,7 @@ function renderPaperList() {
 
         const button = document.createElement('button');
         button.textContent = paper.title;
-        button.onclick = () => displayPaper(paper);
+        button.onclick = () => displayPaper(paper);  // 論文を選択してフォームに表示
         button.style.flexGrow = '1';
 
         const deleteBtn = document.createElement('button');
@@ -246,8 +275,8 @@ function renderPaperList() {
         container.appendChild(button);
         container.appendChild(deleteBtn);
         paperList.appendChild(container);
-
     });
 }
+
 
 
