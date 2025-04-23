@@ -141,8 +141,8 @@ ${citationWithLink}
 ${paper.tags}
 `;
 
-    const plainOutput = `
-論文タイトル: ${paper.title}
+    const plainOutput = 
+`論文タイトル: ${paper.title}
 論文URL: ${paper.url}
 引用文: ${paper.citation}
 国際会議名: ${paper.conference}
@@ -152,8 +152,7 @@ ${paper.tags}
 コメント: ${paper.comment1}
 コメント2: ${paper.comment2}
 概要: ${paper.abstract}
-タグ: ${paper.tags}
-`;
+タグ: ${paper.tags}`;
         
     document.getElementById('output').textContent = output;
     document.getElementById('plainOutput').textContent = plainOutput;
