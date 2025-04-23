@@ -2,92 +2,84 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>論文情報管理ツール</title>
+    <title>論文情報管理ツール - トップページ</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: "Yu Gothic", sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+        }
+
+        main {
+            margin: 3rem auto;
+            max-width: 800px;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            margin: 1.5rem auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card a {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2980b9;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 1rem;
+            background-color: #ddd;
+            color: #333;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
-<script src="script.js"></script>
 <body>
-    <div class="container">
-        <div class="main-form">
-            <h1>論文情報管理ツール</h1>
-            <div class="card">
-                <h2>論文情報入力</h2>
-                <!-- フォーム要素ここに -->
+    <header>
+        <h1>論文情報管理ツール</h1>
+        <p>論文を記録・整理・共有するWebベースの管理ツール</p>
+    </header>
 
-                <label for="title">論文タイトル</label>
-                <input type="text" id="title">
-    
-                <label for="url">論文URL</label>
-                <input type="text" id="url">
-    
-                <label for="citation">引用文</label>
-                <textarea id="citation" rows="4"></textarea>
-    
-                <label for="conference">国際会議名</label>
-                <input type="text" id="conference">
-    
-                <label for="year">公開年</label>
-                <input type="text" id="year">
-    
-                <label for="rank">オススメランク</label>
-                <select id="rank">
-                    <option value="S">S</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="B-">B-</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="C-">C-</option>
-                </select>
-    
-                <label for="introducer">紹介者</label>
-                <input type="text" id="introducer">
-    
-                <label for="comment1">コメント</label>
-                <textarea id="comment1" rows="3"></textarea>
-    
-                <label for="comment2">コメント2</label>
-                <textarea id="comment2" rows="3"></textarea>
-    
-                <label for="abstract">概要(Abstract)</label>
-                <textarea id="abstract" rows="5"></textarea>
-    
-                <label for="tags">タグ</label>
-                <input type="text" id="tags">
-
-                <button onclick="generateOutput()">出力を生成</button>
-                <button onclick="addPaperToList()">論文情報を追加</button>
-                <button id="saveButton">編集内容の保存</button>
-                <button onclick="clearInputs()">入力をリセット</button>
-            </div>
-
-  
-            <div class="card">
-                <h2>出力情報1</h2>
-                <button onclick="copyToClipboard('output')">出力1をコピー</button>
-                <div id="output" class="output"></div>
-            </div>
-          
-            <div class="card">
-                <h2>出力情報2</h2>
-                <button onclick="copyToClipboard('plainOutput')">出力2をコピー</button>
-                <div id="plainOutput" class="output"></div>
-            </div>
+    <main>
+        <div class="card">
+            <a href="tool.html">📄 ツールを使う</a>
+            <p>論文情報の入力・出力・保存・読み込みなどを行えます。</p>
         </div>
 
-        <div class="list-container">
-            <h2>論文一覧</h2>
-            <div class="paper-list" id="paperList"></div>
-            
-            <h2>データ管理</h2>
-                <button onclick="exportPapers()">論文情報をエクスポート</button>
-                <input type="file" id="importFile" accept=".json" onchange="importPapers()" />              
-            </div>
+        <div class="card">
+            <a href="howto.html">📝 使い方ガイド</a>
+            <p>このツールの基本的な使い方を解説したページです。</p>
         </div>
-    </div>
+
+        <div class="card">
+            <a href="developer.html">🔧 開発者向け情報</a>
+            <p>内部構造や関数一覧、将来の拡張アイデアなど技術情報を掲載。</p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 論文情報管理ツール | 開発者チーム
+    </footer>
 </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>開発者向け情報 - 論文情報管理ツール</title>
+    <link rel="stylesheet" href="developer.css">
+</head>
+<body>
+    <header>
+        <h1>開発者向け情報</h1>
+        <p>このページでは、論文情報管理ツールのWeb構成とJavaScriptの各関数について説明します。</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>🔧 Webページ全体構成</h2>
+            <ul>
+                <li><strong>index.html：</strong>トップページ</li>
+                <li><strong>tool.html：</strong>ツールのページ</li>
+                <li><strong>howto.html：</strong>ユーザー向け使い方解説ページ</li>
+                <li><strong>developer.html：</strong>開発者向け情報ページ（このページ）</li>
+                <li><strong>style.css：</strong>全体デザイン（共通）</li>
+                <li><strong>script.js：</strong>動作ロジック</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>📦 script.js：関数の機能一覧</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>関数名</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>generateOutput()</td>
+                        <td>入力された論文情報を基に、HTML形式とプレーンテキストの出力を生成</td>
+                    </tr>
+                    <tr>
+                        <td>addPaperToList()</td>
+                        <td>フォームからの入力内容をJSON形式のオブジェクトとして内部リストに追加し、画面に表示</td>
+                    </tr>
+                    <tr>
+                        <td>renderPaperList()</td>
+                        <td>論文リストを画面上に再描画（編集ボタンや削除ボタン含む）</td>
+                    </tr>
+                    <tr>
+                        <td>clearInputs()</td>
+                        <td>フォームの全入力欄をリセットし、出力欄も初期化</td>
+                    </tr>
+                    <tr>
+                        <td>copyToClipboard(id)</td>
+                        <td>指定したIDのテキスト内容をクリップボードにコピー</td>
+                    </tr>
+                    <tr>
+                        <td>exportPapers()</td>
+                        <td>現在の論文リストをJSONとしてファイル出力</td>
+                    </tr>
+                    <tr>
+                        <td>importPapers()</td>
+                        <td>JSONファイルを読み込んで内部の論文リストに反映</td>
+                    </tr>
+                    <tr>
+                        <td>editPaper(index)</td>
+                        <td>指定されたインデックスの論文情報をフォームに読み込んで編集準備</td>
+                    </tr>
+                    <tr>
+                        <td>saveEditedPaper()</td>
+                        <td>編集後の内容を論文リストに保存し、再描画</td>
+                    </tr>
+                    <tr>
+                        <td>deletePaper(index)</td>
+                        <td>指定された論文データを論文リストから削除</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>📂 保存データについて</h2>
+            <p>データはブラウザ上のJavaScript変数 <code>paperList</code> に保持され、必要に応じてJSONでエクスポート／インポートされます。</p>
+        </section>
+
+        <section>
+            <h2>🧪 今後の拡張アイデア（開発メモ）</h2>
+            <ul>
+                <li>タグによるフィルタリング機能</li>
+                <li>検索機能（タイトルや会議名）</li>
+                <li>ローカルストレージによる保存</li>
+                <li>日英切り替え対応</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer style="margin-top: 3rem; padding: 1rem; background-color: #eee; text-align: center;">
+        <p>© 2025 開発者向け情報 | 論文情報管理ツール</p>
+        <a href="index.html" style="display: block; text-decoration: none; color: #2c3e50; font-weight: bold; margin-top: 1rem;">
+            ⬅️ トップページへ戻る
+        </a>
+    </footer>
+    
+</body>
+</html>
