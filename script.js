@@ -211,7 +211,12 @@ function copyToClipboard(inputId) {
     }, 3000);
 }
 
-
+function copyToClipboard4Info(elementId) {
+    const text = document.getElementById(elementId).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('コピーしました');
+    });
+}
 
 function exportPapers() {
     const dataStr = JSON.stringify(papers, null, 2);
