@@ -88,6 +88,7 @@ color: black;
 margin-top: 0em;
 margin-bottom: 0em;
 font-family: "Sawarabi Mincho";
+margin:1em 0em;
 }
 
 /* アスタリスク3つの強調文字 */
@@ -105,6 +106,7 @@ margin-top: 0em;
 margin-bottom: 0em;
 width: 100%;
 font-family: "Sawarabi Mincho";
+margin:1em 0em;
 }
 
 .level-1 img { width: 16.7%; height: auto; }
@@ -114,6 +116,20 @@ font-family: "Sawarabi Mincho";
 .level-5 img { width: 50%; height: auto; }
 .level-6 img { width: 75%; height: auto;  }
 
+
+/* リンクのスタイリング */
+.link {
+    color: #1a73e8; /* 青色 */
+    text-decoration: none; /* 下線なし */
+    cursor: pointer; /* カーソルを手のひらアイコンに */
+}
+
+/* タイトル（最初の行） */
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
 
 /* スマホ表示を調整 */
 @media screen and (max-width: 768px) {
