@@ -1,0 +1,202 @@
+@import url("https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Klee+One&family=Kosugi+Maru&family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@100..900&family=Sawarabi+Mincho&family=Yusei+Magic&display=swap");
+
+body {
+    background-image: URL('https://iseglock17.github.io/ise_page/image/cycling/cycling1.JPG');
+}
+
+
+html,
+body,
+code,
+kbd,
+pre,
+samp,
+.tooltip,
+.editor,
+.grid li,
+.list li.page-list-item,
+.popup-menu,
+.stream {
+font-family: "Kosugi Maru";	/*丸ゴシック*/
+font-family: "Kaisei Decol";	/*おしゃれフォント*/
+font-family: "Klee One"	/* 手書き風*/
+font-family: "Mochiy Pop One"	/* ポップ風*/
+font-family: "Yusei Magic" /*油性マジック*/
+font-family: "Sawarabi Mincho";	/*さわらび明朝*/
+font-family: "Noto Sans JP";	/*ゴシック */
+}
+
+.line.line-title .text {
+line-height: 35px; 
+    color: #4c6cb3;
+    font-size: 30px;
+    font-weight: 600;
+            font-family: "Yusei Magic" /*油性マジック*/
+}
+    
+body {
+background:
+    repeating-linear-gradient( 0deg,
+    transparent 0px 9px,
+    silver      10px,
+    transparent 11px 15px
+    ),
+    repeating-linear-gradient( 90deg,
+    var(--body-bg, transparent) 0px 9px,
+    silver      10px,
+    var(--body-bg, transparent) 11px 15px
+    );
+}
+
+/* セル間に線を入れる */
+.table-block .cell {
+/* 全てのセルの右と下 */
+border-right: solid 1px #cccccc;
+border-bottom: solid 1px #cccccc;
+}
+.table-block .cell:first-child {
+/* 1列目のセルの左 */
+border-left: solid 1px #cccccc;
+}
+.section-title + .line .table-block .cell {
+/* 1行目のセルの上 */
+border-top: solid 1px #cccccc;
+}
+
+/* 1行目を太字、中央揃え */
+.section-title + .line .table-block .cell {
+font-weight: bolder;
+text-align: center;
+}
+
+.grid li.page-list-item a .icon img {
+max-width: 100%;
+max-height: 100%;
+width: auto !important;
+}
+/* アスタリスク4つの強調文字 */
+.line strong.level-4 {
+display: block; 
+line-height: 1.2;
+border-left: 2px solid #bd0cd4;
+border-bottom: 2px solid #124ac2;
+padding: 2px 0.5em;  
+font-size: 120%;
+text-align: left;
+font-weight: 500;
+color: black;
+margin-top: 0em;
+margin-bottom: 0em;
+font-family: "Sawarabi Mincho";
+}
+
+/* アスタリスク3つの強調文字 */
+.line strong.level-3 {
+display: block; 
+border-style: dotted solid;
+border-color: #33cc00;
+border-width: 2px 1px 2px 8px;
+padding: 4px 4px 4px 0.5em;
+font-size: 130%;
+text-align: left;
+font-weight: 600;
+color: #006300;
+margin-top: 0em;
+margin-bottom: 0em;
+width: 100%;
+font-family: "Sawarabi Mincho";
+}
+
+.level-1 img { width: 16.7%; height: auto; }
+.level-2 img { width: 33.3%; height: auto; }
+.level-3 img { width: 50%; height: auto;   }
+.level-4 img { width: 66.7%; height: auto; }
+.level-5 img { width: 50%; height: auto; }
+.level-6 img { width: 75%; height: auto;  }
+
+
+/* スマホ表示を調整 */
+@media screen and (max-width: 768px) {
+.line strong.level-4 {
+        font-size: 110%;
+    line-height: 1.8;
+    font-weight: bold;
+        padding: .7rem;
+}
+
+    .line strong.level-3 {
+        font-size: 110%;
+    font-weight: bold;
+        line-height: 2;
+    }
+}
+
+/* 文字色の装飾 */
+.deco-\# {
+    color: #3cbbfd; /* 青文字 */
+    color: #005BBB;
+}
+
+.deco-\" {
+    color: #e0f33f; /* 黄色文字 */
+    color: 	#F5B800;
+}
+
+.deco-\! {
+    color: #fb50b7; /* 赤文字 */
+    color: #D72638;
+}
+
+/* 吹き出し*/
+.deco-\{, .deco-\} {
+    font-size: 1.5em;
+    color: #fff;
+    background-color: #b2bcba;
+    padding: 0.1em 0.2em 0.1em 0.2em;
+    border-radius: 0.4em;
+    margin: auto 0.3em;
+    display: inline-block;
+    max-width: calc(100% - 100px);
+    vertical-align: top;
+    font-family: "Yusei Magic" /*油性マジック*/
+    font-family: "Kaisei Decol";	/*おしゃれフォント*/
+        font-family: "Klee One"	/* 手書き風*/
+}
+
+.deco-\{:before {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    transform: translateX(-100%) translateY(calc(1em - 80%));
+    width: 0;
+    content: "";
+    border-width: 0 0 0.6em 0.6em;
+    border-style: solid;
+    border-color: #b2bcba transparent;
+}
+
+.deco-\}:after {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    transform: translateY(calc(1em - 80%));
+    width: 0;
+    content: "";
+    border-width: 0 0.6em 0.6em 0;
+    border-style: solid;
+    border-color: #b2bcba transparent;
+}
+
+.deco-\!:before, .deco-\!:after {
+    border-color: #ee6666 transparent;
+}
+
+.deco-\!:before, .deco-\!:after {
+    border-color: #ee6666 transparent;
+}
+
+.deco-\{ a,
+.deco-\} a {
+    color: #66F;
+}
+
